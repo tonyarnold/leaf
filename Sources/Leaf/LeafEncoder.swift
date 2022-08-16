@@ -128,7 +128,7 @@ extension LeafEncoder {
     private final class EncoderKeyedContainerImpl<Key>: KeyedEncodingContainerProtocol, LeafEncodingResolvable where Key: CodingKey {
         let encoder: EncoderImpl
         var data: [String: LeafEncodingResolvable] = [:]
-        var resolvedData: LeafData? { let compact = self.data.compactMapValues { $0.resolvedData }; return compact.isEmpty ? nil : .dictionary(compact) }
+        var resolvedData: LeafData? { let compact = self.data.compactMapValues { $0.resolvedData }; return .dictionary(compact) }
 
         /// See ``KeyedEncodingContainerProtocol/codingPath``.
         var codingPath: [CodingKey] { self.encoder.codingPath }
@@ -175,7 +175,7 @@ extension LeafEncoder {
         let encoder: EncoderImpl
         var data: [LeafEncodingResolvable] = []
         var nextCodingKey: CodingKey { GenericCodingKey(intValue: self.count) }
-        var resolvedData: LeafData? { let compact = data.compactMap(\.resolvedData); return compact.isEmpty ? nil : .array(compact) }
+        var resolvedData: LeafData? { let compact = data.compactMap(\.resolvedData); return .array(compact) }
         
         /// See ``UnkeyedEncodingContainer/codingPath``.
         var codingPath: [CodingKey] { self.encoder.codingPath }
